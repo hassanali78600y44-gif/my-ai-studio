@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1769e0">
+<meta name="description" content="A clean AI photo and video creator demo.">
+<title>My AI Studio — Photo & Video Creator</title>
+<style>
+:root{--blue:#1769e0;--blue2:#0b4fbd;--ink:#14213d;--muted:#64748b;--bg:#f5f8ff;--line:#dce6f5;--white:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+button,input,textarea,select{font:inherit}button,a{touch-action:manipulation}.wrap{width:min(1100px,92%);margin:auto}
+header{background:#ffffffed;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}
+.nav{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px;font-weight:850;font-size:1.1rem;color:var(--ink);text-decoration:none}.logo{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#1c7cf4,#625cf6);color:white;font-weight:900}.navlinks{display:flex;gap:18px;align-items:center}.navlinks a{color:var(--muted);text-decoration:none;font-size:.92rem}.navlinks a:hover{color:var(--blue)}
+.btn{border:0;border-radius:12px;padding:12px 16px;background:var(--blue);color:white;font-weight:750;cursor:pointer;box-shadow:0 5px 14px #1769e022}.btn:hover{background:var(--blue2)}.btn.secondary{background:white;color:var(--blue);border:1px solid var(--line);box-shadow:none}.btn:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #8dbbff;outline-offset:2px}
+.hero{padding:58px 0 36px;background:radial-gradient(ellipse at 85% 5%,#dbeafe 0,transparent 38%),linear-gradient(180deg,#fff,#f5f8ff)}.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}.pill{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;background:#e9f2ff;color:#1556b5;font-size:.82rem;font-weight:800}.hero h1{font-size:clamp(2.3rem,6vw,4.2rem);line-height:1.06;letter-spacing:-.045em;margin:18px 0}.gradient{color:var(--blue)}.hero p{font-size:1.08rem;color:var(--muted);max-width:560px}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.note{font-size:.82rem!important;margin-top:15px}
+.preview{border:1px solid #d9e6fa;background:white;border-radius:24px;padding:16px;box-shadow:0 24px 70px #183b7114;transform:rotate(1deg)}.preview-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;font-size:.85rem;font-weight:800}.status{color:#16845b;background:#e7f8f0;border-radius:999px;padding:5px 9px;font-size:.72rem}.art{min-height:250px;border-radius:17px;overflow:hidden;position:relative;background:linear-gradient(135deg,#b9dcff,#f1f7ff 46%,#c4d4ff);display:grid;place-items:center}.art:before{content:"";position:absolute;width:170px;height:170px;border-radius:50%;background:linear-gradient(135deg,#fff,#8dbbff);top:18px;right:28px;box-shadow:0 0 55px #fff}.mountain{position:absolute;bottom:-1px;width:100%;height:60%;background:linear-gradient(145deg,#1769e0,#7c9cff);clip-path:polygon(0 100%,0 65%,23% 28%,40% 58%,63% 8%,100% 62%,100% 100%)}.mountain.two{height:42%;background:linear-gradient(135deg,#0b4fbd,#4f75dd);clip-path:polygon(0 100%,0 60%,32% 18%,57% 62%,77% 34%,100% 66%,100% 100%);opacity:.8}.art-label{position:absolute;top:15px;left:15px;background:#ffffffd9;border:1px solid #fff;padding:7px 10px;border-radius:10px;font-size:.75rem;font-weight:800}.preview-foot{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:.8rem;padding-top:13px}
+section{padding:40px 0}.section-head{text-align:center;max-width:650px;margin:0 auto 25px}.section-head h2{font-size:clamp(1.7rem,4vw,2.4rem);margin:0 0 8px;letter-spacing:-.03em}.section-head p{color:var(--muted);margin:0}.tools{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{background:white;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 8px 30px #183b7108}.panel h3{margin:0 0 6px;font-size:1.2rem}.panel .sub{color:var(--muted);font-size:.9rem;margin:0 0 18px}.field{display:grid;gap:7px;margin:14px 0}.field label{font-size:.9rem;font-weight:750}.field input,.field textarea,.field select{width:100%;border:1px solid #cfdbec;border-radius:11px;padding:12px;background:#fff;color:var(--ink)}.field textarea{min-height:90px;resize:vertical}.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.full{width:100%}.result{margin-top:16px;border:1px dashed #b8cce8;border-radius:15px;padding:16px;background:#f8fbff;min-height:90px}.result h4{margin:0 0 7px}.result p{margin:6px 0;color:var(--muted);font-size:.9rem}.demo-art{min-height:170px;border-radius:12px;background:linear-gradient(135deg,#d8eaff,#f7faff);display:grid;place-items:center;text-align:center;padding:20px;overflow:hidden}.demo-art .big-icon{font-size:2.5rem}.demo-art strong{display:block}.demo-art small{display:block;color:var(--muted);margin-top:5px}.upload-preview{max-width:100%;max-height:230px;border-radius:12px;display:block;margin:10px auto 0}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.feature{padding:20px;background:white;border:1px solid var(--line);border-radius:17px}.feature .emoji{font-size:1.6rem}.feature h3{margin:10px 0 5px;font-size:1.05rem}.feature p{margin:0;color:var(--muted);font-size:.9rem}
+.notice{background:#fff8e7;border:1px solid #f5dfa0;border-radius:15px;padding:16px;color:#6c4c08;font-size:.9rem}.notice strong{display:block;margin-bottom:4px}
+footer{border-top:1px solid var(--line);background:white;padding:24px 0;color:var(--muted);font-size:.86rem}.footer-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.toast{margin-top:12px;color:#1556b5;font-size:.9rem;min-height:1.3em}
+@media(max-width:760px){.navlinks{gap:10px}.navlinks a:not(.nav-cta){display:none}.hero{padding-top:38px}.hero-grid{grid-template-columns:1fr;gap:25px}.preview{transform:none}.art{min-height:220px}.tools{grid-template-columns:1fr}.features{grid-template-columns:1fr}.panel{padding:18px}.hero h1{font-size:2.65rem}}
+@media(max-width:390px){.nav{min-height:60px}.brand{font-size:1rem}.logo{width:34px;height:34px}.btn{padding:11px 13px}.row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#home" aria-label="My AI Studio home"><span class="logo">M</span><span>My AI Studio</span></a>
+    <nav class="navlinks" aria-label="Main navigation">
+      <a href="#tools">Creator tools</a><a href="#features">Features</a><a href="#limits">About demo</a>
+      <a class="btn nav-cta" href="#tools">Try demo</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="hero" id="home">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="pill">✦ Your creative AI workspace</span>
+        <h1>Turn your ideas into <span class="gradient">visual stories.</span></h1>
+        <p>Create a prompt, preview a concept, and plan your next photo or video. A simple mobile-friendly demo to start your AI brand.</p>
+        <div class="hero-actions"><a class="btn" href="#tools">Start creating ↓</a><a class="btn secondary" href="#features">Explore features</a></div>
+        <p class="note">Free starter website · Works on mobile · No account needed for this demo</p>
+      </div>
+      <div class="preview" aria-label="Decorative AI artwork preview">
+        <div class="preview-top"><span>✨ Featured concept</span><span class="status">Demo preview</span></div>
+        <div class="art"><span class="art-label">Dreamscape / 01</span><div class="mountain"></div><div class="mountain two"></div></div>
+        <div class="preview-foot"><span>Blue-hour mountains</span><span>Concept artwork</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tools">
+    <div class="wrap">
+      <div class="section-head"><h2>Your creative studio</h2><p>Try the working demo controls below. These make previews and prompt ideas locally; they do not call an AI model yet.</p></div>
+      <div class="tools">
+        <article class="panel">
+          <h3>🖼️ Photo prompt studio</h3>
+          <p class="sub">Write an idea and get a polished prompt to use in an AI image tool.</p>
+          <div class="field"><label for="photoPrompt">What would you like to create?</label><textarea id="photoPrompt" placeholder="e.g. A peaceful lake at sunrise, cinematic lighting..."></textarea></div>
+          <div class="row2">
+            <div class="field"><label for="photoStyle">Visual style</label><select id="photoStyle"><option>Cinematic</option><option>Photorealistic</option><option>Anime</option><option>Watercolor</option><option>3D illustration</option><option>Minimalist</option></select></div>
+            <div class="field"><label for="photoRatio">Aspect ratio</label><select id="photoRatio"><option>1:1 square</option><option>4:5 portrait</option><option>16:9 landscape</option><option>9:16 story</option></select></div>
+          </div>
+          <button class="btn full" id="makePhoto">Create prompt preview</button>
+          <div class="result" id="photoResult" aria-live="polite"><h4>Your prompt will appear here</h4><p>This demo helps prepare a prompt; it does not generate a real image.</p></div>
+          <button class="btn secondary full" id="copyPhoto" style="margin-top:10px">Copy prompt</button>
+          <div class="toast" id="photoToast" aria-live="polite"></div>
+        </article>
+
+        <article class="panel">
+          <h3>🎬 Video idea studio</h3>
+          <p class="sub">Turn a short concept into a scene-by-scene video plan.</p>
+          <div class="field"><label for="videoPrompt">Describe your video</label><textarea id="videoPrompt" placeholder="e.g. A sports car driving through a neon city at night..."></textarea></div>
+          <div class="row2">
+            <div class="field"><label for="videoLength">Duration</label><select id="videoLength"><option>10 seconds</option><option>15 seconds</option><option>30 seconds</option><option>60 seconds</option></select></div>
+            <div class="field"><label for="videoFormat">Format</label><select id="videoFormat"><option>9:16 vertical</option><option>16:9 landscape</option><option>1:1 square</option></select></div>
+          </div>
+          <button class="btn full" id="makeVideo">Build video plan</button>
+          <div class="result" id="videoResult" aria-live="polite"><h4>Your video plan will appear here</h4><p>This demo creates a text storyboard, not a playable video.</p></div>
+          <button class="btn secondary full" id="copyVideo" style="margin-top:10px">Copy video plan</button>
+          <div class="toast" id="videoToast" aria-live="polite"></div>
+        </article>
+
+        <article class="panel">
+          <h3>📷 Upload a photo preview</h3>
+          <p class="sub">Choose an image from your phone to preview it on this page. It stays in your browser and is not uploaded.</p>
+          <div class="field"><label for="imageUpload">Choose image</label><input type="file" id="imageUpload" accept="image/*"></div>
+          <div class="result" id="uploadResult" aria-live="polite"><h4>No image selected</h4><p>Your selected photo preview will appear here.</p></div>
+          <button class="btn secondary full" id="clearUpload" style="margin-top:10px">Clear image</button>
+        </article>
+
+        <article class="panel">
+          <h3>💡 Prompt ideas</h3>
+          <p class="sub">Tap a starter idea to put it into the photo prompt box.</p>
+          <div class="field"><button class="btn secondary full idea" data-prompt="A peaceful mountain lake at sunrise, soft mist, beautiful reflections, cinematic composition">🌄 Mountain lake at sunrise</button></div>
+          <div class="field"><button class="btn secondary full idea" data-prompt="A futuristic blue city after rain, glowing reflections, wide cinematic view, rich details">🌃 Futuristic blue city</button></div>
+          <div class="field"><button class="btn secondary full idea" data-prompt="A tiny magical garden inside a glass dome, glowing flowers, whimsical 3D illustration">🌱 Magical mini garden</button></div>
+          <div class="notice" id="limits"><strong>Important: this is a demo</strong>Prompt generation, storyboard text, copy buttons and local image preview work in this file. Actual AI image/video generation needs a connected AI service. Free services have limits and may require an API key; never put a secret API key in public HTML.</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head"><h2>Built for your first launch</h2><p>A clean foundation you can improve as your idea grows.</p></div>
+      <div class="features">
+        <div class="feature"><div class="emoji">📱</div><h3>Mobile-first</h3><p>Responsive layout that adjusts to phone, tablet and desktop screens.</p></div>
+        <div class="feature"><div class="emoji">⚡</div><h3>Lightweight</h3><p>Plain HTML, CSS and JavaScript. No libraries or paid hosting required.</p></div>
+        <div class="feature"><div class="emoji">🔒</div><h3>Local photo preview</h3><p>The selected image is previewed in your browser and is not sent to a server.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap footer-row"><span>© <span id="year"></span> My AI Studio · Starter demo</span><span>Made to help ideas get started.</span></div></footer>
+<script>
+const $ = id => document.getElementById(id);
+$('year').textContent = new Date().getFullYear();
+let lastPhotoPrompt = '';
+let lastVideoPlan = '';
+function safeText(value){return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+$('makePhoto').addEventListener('click', () => {
+  const idea = $('photoPrompt').value.trim();
+  if (!idea) { $('photoResult').innerHTML = '<h4>Add an idea first</h4><p>Write a few words describing the image you want.</p>'; return; }
+  lastPhotoPrompt = `${idea}. Style: ${$('photoStyle').value}. Composition: clear subject, balanced lighting, rich details, professional quality. Aspect ratio: ${$('photoRatio').value}.`;
+  $('photoResult').innerHTML = `<h4>Prompt preview ready ✨</h4><p>${safeText(lastPhotoPrompt)}</p><p><strong>Next:</strong> Copy this prompt into an AI image generator to create the actual image.</p>`;
+  $('photoToast').textContent = '';
+});
+$('copyPhoto').addEventListener('click', async () => {
+  if (!lastPhotoPrompt) { $('photoToast').textContent = 'Pehle “Create prompt preview” par tap karein.'; return; }
+  await copyText(lastPhotoPrompt, 'photoToast');
+});
+$('makeVideo').addEventListener('click', () => {
+  const idea = $('videoPrompt').value.trim();
+  if (!idea) { $('videoResult').innerHTML = '<h4>Add a video idea first</h4><p>Describe what happens in your video.</p>'; return; }
+  const duration = $('videoLength').value;
+  lastVideoPlan = `Video concept: ${idea}\nFormat: ${$('videoFormat').value}\nDuration: ${duration}\n\nScene 1 (opening): Establish the setting and main subject.\nScene 2 (action): Show the main movement or change, with a smooth camera move.\nScene 3 (ending): Finish with a clear final frame and gentle transition.\n\nVisual direction: consistent style, readable framing, smooth transitions, suitable music added separately.`;
+  $('videoResult').innerHTML = `<h4>Storyboard plan ready 🎬</h4><p>${safeText(lastVideoPlan).replace(/\n/g,'<br>')}</p><p><strong>Note:</strong> This is a written plan, not a rendered video.</p>`;
+  $('videoToast').textContent = '';
+});
+$('copyVideo').addEventListener('click', async () => {
+  if (!lastVideoPlan) { $('videoToast').textContent = 'Pehle “Build video plan” par tap karein.'; return; }
+  await copyText(lastVideoPlan, 'videoToast');
+});
+async function copyText(text, statusId) {
+  try {
+    if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(text);
+    else {
+      const ta = document.createElement('textarea'); ta.value = text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+      const ok = document.execCommand('copy'); ta.remove(); if (!ok) throw new Error('copy failed');
+    }
+    $(statusId).textContent = 'Copied! Ab aap isay paste kar sakte hain.';
+  } catch(e) { $(statusId).textContent = 'Copy nahi ho saka. Text ko select karke manually copy karein.'; }
+}
+document.querySelectorAll('.idea').forEach(btn => btn.addEventListener('click', () => {
+  $('photoPrompt').value = btn.dataset.prompt;
+  $('photoPrompt').scrollIntoView({behavior:'smooth',block:'center'});
+  $('photoToast').textContent = 'Idea add ho gaya. Ab Create prompt preview par tap karein.';
+}));
+let currentObjectUrl = null;
+$('imageUpload').addEventListener('change', event => {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  if (!file.type.startsWith('image/')) { $('uploadResult').innerHTML='<h4>Image file choose karein</h4><p>Please select a JPG, PNG, WebP or another image file.</p>'; return; }
+  if (currentObjectUrl) URL.revokeObjectURL(currentObjectUrl);
+  currentObjectUrl = URL.createObjectURL(file);
+  $('uploadResult').innerHTML = `<h4>${safeText(file.name)}</h4><p>Preview only · ${(file.size/1024/1024).toFixed(2)} MB · Not uploaded</p><img class="upload-preview" src="${currentObjectUrl}" alt="Selected local image preview">`;
+});
+$('clearUpload').addEventListener('click', () => {
+  $('imageUpload').value = '';
+  if (currentObjectUrl) { URL.revokeObjectURL(currentObjectUrl); currentObjectUrl = null; }
+  $('uploadResult').innerHTML='<h4>No image selected</h4><p>Your selected photo preview will appear here.</p>';
+});
+</script>
+</body>
+</html>
